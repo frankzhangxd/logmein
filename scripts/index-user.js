@@ -41,7 +41,7 @@ var app = {
         });
 
         BackgroundGeolocation.on('start', function() {
-            alert('[INFO] BackgroundGeolocation service has been started');
+            console.log('[INFO] BackgroundGeolocation service has been started');
         });
 
         BackgroundGeolocation.on('stop', function() {
