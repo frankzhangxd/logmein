@@ -44,13 +44,14 @@
     <plugin name="cordova-plugin-x-toast" spec="2.6.2" />
     <plugin name="cordova-plugin-camera-preview" />
     <plugin name="cordova-plugin-geolocation" spec="2.4.3" />
+    <plugin name="cordova-plugin-mauron85-background-geolocation"/>
     <!--
     <plugin name="cordova-plugin-mauron85-background-geolocation" spec="2.0.0">
         <variable name="ALWAYS_USAGE_DESCRIPTION" value="This app requires background tracking enabled" />
     </plugin>
-    -->
+    
     <plugin name="cordova-plugin-background-fetch" source="npm" spec="5.4.1"/> 
-
+    -->
     <icon src="icon.png" />
     <icon src="res/icon/android/icon-36-ldpi.png"   gap:platform="android"    gap:qualifier="ldpi" />
     <icon src="res/icon/android/icon-48-mdpi.png"   gap:platform="android"    gap:qualifier="mdpi" />

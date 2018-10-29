@@ -9,68 +9,58 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     onDeviceReady: function() {
-        /*
-        var callbackFn = function(location) {
-            jQuery.post(serviceURL + 'geotrack', {'listid': localStorage.listid, 'lat':location.latitude, 'lng':location.longitude}, function(data) {})
-            backgroundGeolocation.finish();
-        };
-     
-        var failureFn = function(error) {
-            alert('BackgroundGeolocation error'+error);
-        };
-     
-        backgroundGeolocation.configure(callbackFn, failureFn, {
-            desiredAccuracy: 0,
-            stationaryRadius: 100,
-            distanceFilter: 200,
-            debug: false,
-            interval: 600000,
-            fastestInterval: 600000,
-            locationProvider: backgroundGeolocation.provider.RAW_PROVIDER,
+        BackgroundGeolocation.configure({
+            locationProvider: BackgroundGeolocation.RAW_PROVIDER,
+            desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
+            stationaryRadius: 50,
+            distanceFilter: 50,
+            debug: true,
+            interval: 10000,
+            fastestInterval: 5000,
+            activitiesInterval: 10000,
+            url: serviceURL + 'geotrack',
             stopOnTerminate: false,
-            pauseLocationUpdates: false,
+            postTemplate: {
+              lat: '@latitude',
+              lng: '@longitude',
+              listid: localStorage.listid // you can also add your own properties
+            }
         });
-        backgroundGeolocation.start();
-        */
         
-         
-        var BackgroundFetch = window.BackgroundFetch;
-        var fetchCallback = function() {
-            var options = {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-             };
-             navigator.geolocation.getCurrentPosition(
-                function(position){
-                    jQuery.post(serviceURL + 'geotrack', {'listid': localStorage.listid, 'lat':position.coords.latitude, 'lng':position.coords.longitude}, function(data) {})
-                },
-                function(error){
-                    console.log('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
-                },
-                options
-             );
-            
-         
-            // Required: Signal completion of your task to native code
-            // If you fail to do this, the OS can terminate your app
-            // or assign battery-blame for consuming too much background-time
-            BackgroundFetch.finish();
-         };
-         var failureCallback = function(error) {
-            console.log('- BackgroundFetch failed '+error);
-         };
-          
-         BackgroundFetch.configure(fetchCallback, failureCallback, {
-            minimumFetchInterval: 15, // <-- default is 15
-            stopOnTerminate: false,   // <-- Android only
-            startOnBoot: true,        // <-- Android only
-            forceReload: true         // <-- Android only
-         });
-         
-         if(localStorage.signStatus==1){
-            backgroundFetch.stop();
-         }
+        BackgroundGeolocation.on('location', function(location) {
+            // handle your locations here
+            // to perform long running operation on iOS
+            // you need to create background task
+            BackgroundGeolocation.startTask(function(taskKey) {
+              jQuery.post(serviceURL + 'geotrack', {'listid': localStorage.listid, 'lat':location.latitude, 'lng':location.longitude}, function(data) {})
+              BackgroundGeolocation.endTask(taskKey);
+            });
+        });
+        BackgroundGeolocation.on('error', function(error) {
+            alert('[ERROR] BackgroundGeolocation error:', error.code, error.message);
+        });
+
+        BackgroundGeolocation.on('start', function() {
+            alert('[INFO] BackgroundGeolocation service has been started');
+        });
+
+        BackgroundGeolocation.on('stop', function() {
+            alert('[INFO] BackgroundGeolocation service has been stopped');
+        });
+
+        BackgroundGeolocation.on('authorization', function(status) {
+            console.log('[INFO] BackgroundGeolocation authorization status: ' + status);
+            if (status !== BackgroundGeolocation.AUTHORIZED) {
+              // we need to set delay or otherwise alert may not be shown
+              setTimeout(function() {
+                var showSettings = confirm('App requires location tracking permission. Would you like to open app settings?');
+                if (showSetting) {
+                  return BackgroundGeolocation.showAppSettings();
+                }
+              }, 1000);
+            }
+        });
+        BackgroundGeolocation.start();
     }
 };
 (function ($) {
