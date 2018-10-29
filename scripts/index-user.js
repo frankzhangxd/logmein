@@ -14,7 +14,7 @@ var app = {
             desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
             stationaryRadius: 50,
             distanceFilter: 50,
-            debug: false,
+            debug: true,
             interval: 600000,
             fastestInterval: 300000,
             activitiesInterval: 600000,
