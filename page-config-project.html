@@ -1,0 +1,76 @@
+<!DOCTYPE HTML><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+
+<title>Dependable Mechanical Systems Inc. - Sign In</title>
+
+<link rel="stylesheet" href="themes/signin.min.css" />
+<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.5.min.css" />
+<script src="scripts/jquery-1.11.1.min.js"></script>
+<script src="scripts/jquery.mobile-1.4.5.min.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript" src="scripts/config-project.js"></script>
+
+</head>
+<body> 
+
+<div id="preloader">
+	<div id="status">
+    	<p class="center-text">
+			Loading the content...
+            <em>Loading depends on your connection speed!</em>
+        </p>
+    </div>
+</div>
+
+
+<div data-role="page">
+    <div data-role="header">
+    	<h1>Project Configuration</h1>
+        <a href="#" class="ui-btn-left ui-btn ui-btn-inline ui-btn-icon-notext ui-icon-home"></a>
+    	<a href="#" class="ui-btn ui-btn-inline ui-icon-gear ui-btn-icon-notext ui-btn-right"></a>
+    </div>
+
+	<div role="main" class="ui-content">
+        <select id="project" name="project">
+            <option value="">Location</option>
+        </select>
+        <ul data-role="listview" data-inset="true">
+            <li>
+                <h2 id="n1"></h2>
+                <!--<p id="j1"></p>-->
+                <p id="e1"></p>
+                <p class="ui-li-aside" id="p1"></p>
+            </li>
+            <li>
+                <h2 id="n2"></h2>
+                <!--<p id="j2"></p>-->
+                <p id="e2"></p>
+                <p class="ui-li-aside" id="p2"></p>
+            </li>
+            <li>
+                <h2 id="n3"></h2>
+                <!--<p id="j3"></p>-->
+                <p id="e3"></p>
+                <p class="ui-li-aside" id="p3"></p>
+            </li>
+            <li>
+                <h2 id="n4"></h2>
+                <!--<p id="j4"></p>-->
+                <p id="e4"></p>
+                <p class="ui-li-aside" id="p4"></p>
+            </li>
+            <li>
+                <h2 id="n5"></h2>
+                <!--<p id="j5"></p>-->
+                <p id="e5"></p>
+                <p class="ui-li-aside" id="p5"></p>
+            </li>
+        </ul>
+        <a href="#" class="ui-btn ui-corner-all ui-btn-b">Submit</a>
+        
+	</div><!-- /content -->
+</div><!-- /page -->
+</body>
