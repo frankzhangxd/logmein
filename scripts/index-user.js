@@ -10,7 +10,7 @@ var app = {
     },
     onDeviceReady: function() {
         BackgroundGeolocation.configure({
-            locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
+            locationProvider: BackgroundGeolocation.DISTANCE_FILTER_PROVIDER,
             desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
             stationaryRadius: 100,
             distanceFilter: 500,
