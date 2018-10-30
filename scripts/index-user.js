@@ -36,6 +36,9 @@ var app = {
               BackgroundGeolocation.endTask(taskKey);
             });
         });
+        BackgroundGeolocation.on('stationary', function(stationaryLocation) {
+            console.log('[INFO] BackgroundGeolocation stationary service has been started');
+        });
         BackgroundGeolocation.on('error', function(error) {
             alert('[ERROR] BackgroundGeolocation error:', error.code, error.message);
         });
