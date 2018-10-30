@@ -126,6 +126,11 @@ label.ui-btn {
     background: transparent !important;
     border: none !important;
 }
+.ui-footer .ui-btn{
+    border: none;
+    padding: 0.3em;
+    display: block !important;
+}
 /* Corner rounding
 -----------------------------------------------------------------------------------------------------------*/
 /* Class ui-btn-corner-all deprecated in 1.4 */
