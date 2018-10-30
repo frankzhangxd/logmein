@@ -15,9 +15,9 @@ var app = {
             stationaryRadius: 50,
             distanceFilter: 50,
             debug: true,
-            interval: 10000,
-            fastestInterval: 5000,
-            activitiesInterval: 10000,
+            interval: 600000,
+            fastestInterval: 300000,
+            activitiesInterval: 600000,
             url: serviceURL + 'geotrack',
             stopOnTerminate: false,
             postTemplate: {
@@ -38,7 +38,7 @@ var app = {
         });
 
         BackgroundGeolocation.on('error', function(error) {
-            alert('[ERROR] BackgroundGeolocation error:', error.code, error.message);
+            console.log('[ERROR] BackgroundGeolocation error:', error.code, error.message);
         });
 
         BackgroundGeolocation.on('start', function() {
