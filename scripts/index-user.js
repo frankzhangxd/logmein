@@ -12,13 +12,12 @@ var app = {
         BackgroundGeolocation.configure({
             locationProvider: BackgroundGeolocation.DISTANCE_FILTER_PROVIDER,
             desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
-            debug: true,
             stationaryRadius: 100,
             distanceFilter: 500,
+            debug: true,
             interval: 600000,
             fastestInterval: 300000,
             activitiesInterval: 600000,
-            notificationsEnabled: false,
             url: serviceURL + 'geotrack',
             stopOnTerminate: false,
             postTemplate: {
