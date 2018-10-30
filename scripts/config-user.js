@@ -40,7 +40,7 @@ function onDeviceReady() {
             e.preventDefault();
             window.location.replace('index.html');
         })
-        $('.ui-content a.ui-btn').click(function(){
+        $('.ui-footer a.ui-btn').click(function(){
             if($('#fname').val()!='' && $('#mobile').val()!=''){
                 DEMODB.transaction(
                     function (transaction) {

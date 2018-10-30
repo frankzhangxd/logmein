@@ -34,7 +34,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
     $(document).ready(function() { 
         $("#status").fadeOut(); // will first fade out the loading animation
         $("#preloader").fadeOut("slow"); // will fade out the white DIV that covers the website.
-        $('.ui-content a.ui-btn').click(function(e){
+        $('.ui-footer a.ui-btn').click(function(e){
             e.preventDefault();
             localStorage.signStatus = $('#reason').val();
             window.location.replace("page-user-signout.html");

@@ -104,7 +104,7 @@ function onDeviceReady() {
             e.preventDefault();
             window.location.replace('index.html');
         })
-        $('.ui-content a.ui-btn').click(function(e){
+        $('.ui-footer a.ui-btn').click(function(e){
             e.preventDefault();
             if($('#fname').val()!='' && $('#lname').val()!='' && $('#mobile').val()!='' && $('#company').val()!=''){
                 localStorage.fname = $('#fname').val();

@@ -44,7 +44,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
             window.location.replace('index.html');
         })
         
-        $('.ui-content a.ui-btn').click(function(){
+        $('.ui-footer a.ui-btn').click(function(){
             if($('#project').val()!=''){
                 DEMODB.transaction(
                     function (transaction) {

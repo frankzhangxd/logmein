@@ -47,7 +47,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
             e.preventDefault();
             window.location.replace('index-user.html');
         })
-        $('.ui-content a.ui-btn').click(function(e){
+        $('.ui-footer a.ui-btn').click(function(e){
             e.preventDefault();
             if($('#list').val()!=''){
                 localStorage.projectID = $('#list').val();
