@@ -12,7 +12,7 @@ var app = {
         BackgroundGeolocation.configure({
             locationProvider: BackgroundGeolocation.RAW_PROVIDER,
             desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
-            stationaryRadius: 100,
+            stationaryRadius: 50,
             distanceFilter: 500,
             debug: true,
             interval: 600000,
