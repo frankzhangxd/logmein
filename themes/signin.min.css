@@ -130,7 +130,7 @@ label.ui-btn {
     border: none;
     padding: 0.6em;
     display: block !important;
-    background-color: #663333;
+    background-color: #663333 !important;
 }
 /* Corner rounding
 -----------------------------------------------------------------------------------------------------------*/
