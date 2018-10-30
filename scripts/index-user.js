@@ -10,14 +10,14 @@ var app = {
     },
     onDeviceReady: function() {
         BackgroundGeolocation.configure({
-            locationProvider: BackgroundGeolocation.RAW_PROVIDER,
+            locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
             desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
-            stationaryRadius: 50,
-            distanceFilter: 50,
-            debug: true,
+            stationaryRadius: 100,
+            distanceFilter: 500,
             interval: 600000,
             fastestInterval: 300000,
             activitiesInterval: 600000,
+            notificationsEnabled: false,
             url: serviceURL + 'geotrack',
             stopOnTerminate: false,
             postTemplate: {
