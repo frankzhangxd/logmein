@@ -10,7 +10,7 @@ var app = {
     },
     onDeviceReady: function() {
         BackgroundGeolocation.configure({
-            locationProvider: BackgroundGeolocation.DISTANCE_FILTER_PROVIDER,
+            locationProvider: BackgroundGeolocation.RAW_PROVIDER,
             desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
             stationaryRadius: 100,
             distanceFilter: 500,
@@ -36,9 +36,7 @@ var app = {
               BackgroundGeolocation.endTask(taskKey);
             });
         });
-        BackgroundGeolocation.on('stationary', function(stationaryLocation) {
-            console.log('[INFO] BackgroundGeolocation stationary service has been started');
-        });
+
         BackgroundGeolocation.on('error', function(error) {
             alert('[ERROR] BackgroundGeolocation error:', error.code, error.message);
         });
