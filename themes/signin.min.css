@@ -126,10 +126,11 @@ label.ui-btn {
     background: transparent !important;
     border: none !important;
 }
-.ui-footer .ui-btn{
+.ui-footer .ui-btn, .ui-footer .ui-btn:hover{
     border: none;
     padding: 0.6em;
     display: block !important;
+    background-color: #663333;
 }
 /* Corner rounding
 -----------------------------------------------------------------------------------------------------------*/
