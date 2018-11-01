@@ -20,6 +20,7 @@ var app = {
             activitiesInterval: 600000,
             url: serviceURL + 'geotrack',
             stopOnTerminate: false,
+            saveBatteryOnBackground: true, 
             postTemplate: {
               lat: '@latitude',
               lng: '@longitude',
