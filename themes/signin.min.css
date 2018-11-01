@@ -77,6 +77,10 @@ div.ui-controlgroup-label {
 	display:block;
 	font-style:normal;
 }
+.ui-footer{
+    background: transparent !important;
+    border: 0 !important;
+}
 /* Separators
 -----------------------------------------------------------------------------------------------------------*/
 /* Field contain separator (< 28em) */
@@ -126,12 +130,11 @@ label.ui-btn {
     background: transparent !important;
     border: none !important;
 }
-.ui-footer .ui-btn, .ui-footer .ui-btn:hover{
-    border: none;
-    padding: 0.6em;
+.ui-footer .ui-btn, .ui-footer .ui-btn:hover, .ui-footer .ui-btn:active{
     display: block !important;
     background-color: #663333 !important;
     color: white !important;
+    margin: 1%;
 }
 /* Corner rounding
 -----------------------------------------------------------------------------------------------------------*/
