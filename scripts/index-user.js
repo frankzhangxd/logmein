@@ -11,7 +11,7 @@ var app = {
     onDeviceReady: function() {
         BackgroundGeolocation.configure({
             locationProvider: BackgroundGeolocation.RAW_PROVIDER,
-            desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
+            desiredAccuracy: BackgroundGeolocation.MEDIUM_ACCURACY,
             stationaryRadius: 50,
             distanceFilter: 500,
             debug: true,
