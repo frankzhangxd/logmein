@@ -28,9 +28,9 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
         }, function (t, e) {console.log(e.message);});
     });
     $(document).on('click', 'a.ui-icon-home', function(e){
-            e.preventDefault();
-            window.location.replace('index-user.html');
-        })
+        e.preventDefault();
+        window.location.replace('index-user.html');
+    })
     $(document).ready(function() { 
         $("#status").fadeOut(); // will first fade out the loading animation
         $("#preloader").fadeOut("slow"); // will fade out the white DIV that covers the website.
@@ -39,5 +39,25 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
             localStorage.signStatus = $('#reason').val();
             window.location.replace("page-user-signout.html");
         })
+        
+        var src = "log.wav";
+        var mediaRec = new Media(
+            src, 
+            function() {console.log("recordAudio():Audio Success");}, 
+            function(err) {alert("recordAudio():Audio Error: "+ err.code);}
+        );
+        $(document).on('click', 'a.btn-start', function(e){
+            e.preventDefault();
+            mediaRec.startRecord();
+        })
+        $(document).on('click', 'a.btn-stop', function(e){
+            e.preventDefault();
+            mediaRec.stopRecord();
+        })
+        $(document).on('click', 'a.btn-play', function(e){
+            e.preventDefault();
+            mediaRec.play();
+        })
     })
+    
 }(jQuery));
