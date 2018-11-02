@@ -63,6 +63,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
                         reader.onloadend = function() {
                             // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
                             var blob = new Blob([new Uint8Array(this.result)], { type: "audio/wav" });
+                            var data = new FormData();
                             var oReq = new XMLHttpRequest();
                             oReq.open("POST", "https://www.dmscorp.ca/pm/services/uploadAudio", true);
                             oReq.onload = function (oEvent) {};
