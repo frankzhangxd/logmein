@@ -56,7 +56,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
             $('a.btn-play').toggleClass('ui-state-disabled');
             mediaRec.stopRecord();
             
-            window.resolveLocalFileSystemURL(cordova.file.documentsDirectory + src, 
+            window.resolveLocalFileSystemURL(cordova.file.documentsDirectory + 'log.wav', 
                 function(fileEntry){
                     fileEntry.file(function(file) {
                 		var reader = new FileReader();
