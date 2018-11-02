@@ -56,7 +56,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
             $('a.btn-play').toggleClass('ui-state-disabled');
             mediaRec.stopRecord();
             var fd = new FormData();
-            fd.append("file", LocalFileSystem.TEMPORARY+src);
+            fd.append("file", blob, LocalFileSystem.TEMPORARY+src);
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'https://www.dmscorp.ca/pm/services/uploadAudio', true);
             xhr.onload = function (oEvent) {
