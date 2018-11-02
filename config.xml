@@ -33,13 +33,12 @@
         <param name="CAMERA_USAGE_DESCRIPTION" value="We are using the Camera for taking a photo to approve your sign in/out." />
         <param name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="We are using the Photo Library for uploading a photo to approve your sign in/out." />
     </plugin>
-    <plugin name="cordova-plugin-contacts" spec="2.3.1" />
+    <plugin name="cordova-plugin-file" />
     <plugin name="cordova-plugin-device" spec="1.1.7" />
     <plugin name="cordova-plugin-dialogs" spec="1.3.4" />
     <plugin name="cordova-plugin-media" spec="2.4.1" />
     <plugin name="cordova-plugin-network-information" spec="1.3.4" />
     <plugin name="cordova-plugin-splashscreen" spec="3.2.2" />
-    <plugin name="cordova-plugin-vibration" spec="2.1.6" />
     <plugin name="cordova-plugin-whitelist" spec="1.3.3" />
     <plugin name="cordova-plugin-x-toast" spec="2.6.2" />
     <plugin name="cordova-plugin-camera-preview" />

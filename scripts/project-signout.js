@@ -40,7 +40,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
             window.location.replace("page-user-signout.html");
         })
         
-        var src = "log.wav";
+        var src = "documents://log.wav";
         var mediaRec = new Media(
             src, 
             function() {console.log("recordAudio():Audio Success");}, 
@@ -56,7 +56,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
             $('a.btn-play').toggleClass('ui-state-disabled');
             mediaRec.stopRecord();
             var fd = new FormData();
-            fd.append("file", blob, LocalFileSystem.TEMPORARY+src);
+            fd.append("file", blob, cordova.file.externalRootDirectory+src);
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'https://www.dmscorp.ca/pm/services/uploadAudio', true);
             xhr.onload = function (oEvent) {
