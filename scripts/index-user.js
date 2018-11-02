@@ -12,8 +12,8 @@ var app = {
         BackgroundGeolocation.configure({
             locationProvider: BackgroundGeolocation.RAW_PROVIDER,
             desiredAccuracy: BackgroundGeolocation.MEDIUM_ACCURACY,
-            stationaryRadius: 50,
-            distanceFilter: 500,
+            stationaryRadius: 100,
+            distanceFilter: 1000,
             debug: true,
             url: serviceURL + 'geotrack',
             stopOnTerminate: false,
