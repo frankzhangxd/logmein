@@ -55,17 +55,25 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
             e.preventDefault();
             $('a.btn-play').toggleClass('ui-state-disabled');
             mediaRec.stopRecord();
-            var fd = new FormData();
-            fd.append("file", blob, cordova.file.documentsDirectory+src);
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://www.dmscorp.ca/pm/services/uploadAudio', true);
-            xhr.onload = function (oEvent) {
-            	if (this.status == 200) {
-            		var resp = JSON.parse(this.response);
-                    	localStorage.audio = resp.url;
-                    };
-            }
-            xhr.send(fd);
+            window.resolveLocalFileSystemURL(cordova.file.documentsDirectory + src, 
+                function(fileEntry){
+                    fileEntry.file(function(file) {
+                		var reader = new FileReader();
+                        reader.onloadend = function() {
+                            // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
+                            var blob = new Blob([new Uint8Array(this.result)], { type: "audio/wav" });
+                            var oReq = new XMLHttpRequest();
+                            oReq.open("POST", "https://www.dmscorp.ca/pm/services/uploadAudio", true);
+                            oReq.onload = function (oEvent) {};
+                            // Pass the blob in to XHR's send method
+                            oReq.send(blob);
+                        };
+                        // Read the file as an ArrayBuffer
+                        reader.readAsArrayBuffer(file);
+                	});
+                } , 
+                function (err) { alert('error getting file! ' + err); }
+            );
         })
         $(document).on('click', 'a.btn-play', function(e){
             e.preventDefault();
