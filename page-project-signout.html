@@ -40,10 +40,10 @@
         </select>
         <input type="hidden" id="company" value="DMS" />
         <div class="media-wrapper">
-            <p>Recording your daily work notes and safety concerns.</p>
+            <p>You can report daily work and safety concerns by clicking the button below to start recording.</p>
             <a href="#" class="ui-btn ui-corner-all ui-btn-inline btn-start"><i class="fa fa-microphone"></i> Start</a>
-            <a href="#" class="ui-btn ui-corner-all ui-btn-inline btn-stop"><i class="fa fa-stop"></i> Sop</a>
-            <a href="#" class="ui-btn ui-corner-all ui-btn-inline btn-play"><i class="fa fa-play"></i> Play</a>
+            <a href="#" class="ui-btn ui-corner-all ui-btn-inline btn-stop ui-state-disabled"><i class="fa fa-stop"></i> Sop</a>
+            <a href="#" class="ui-btn ui-corner-all ui-btn-inline btn-play ui-state-disabled"><i class="fa fa-play"></i> Play</a>
         </div>
 	</div><!-- /content -->
     <div data-role="footer" data-position="fixed">        
@@ -53,13 +53,9 @@
 </body>
 <style type="text/css">
     .ui-select{
-        margin-bottom: 6em;
-    }
-    div.media-wrapper{
-        padding: 0.7em 0;
-        border-top: 1px solid #663333;
+        margin-bottom: 3em;
     }
     div.media-wrapper a.ui-btn i{
-        margin-right: 1em;
+        margin-right: 0.5em;
     }
 </style>

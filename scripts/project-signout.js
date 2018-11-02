@@ -48,11 +48,24 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
         );
         $(document).on('click', 'a.btn-start', function(e){
             e.preventDefault();
+            $('a.btn-stop').toggleClass('ui-state-disabled');
             mediaRec.startRecord();
         })
         $(document).on('click', 'a.btn-stop', function(e){
             e.preventDefault();
+            $('a.btn-play').toggleClass('ui-state-disabled');
             mediaRec.stopRecord();
+            var fd = new FormData();
+            fd.append("file", LocalFileSystem.TEMPORARY+src);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://www.dmscorp.ca/pm/services/uploadAudio', true);
+            xhr.onload = function (oEvent) {
+            	if (this.status == 200) {
+            		var resp = JSON.parse(this.response);
+                    	localStorage.audio = resp.url;
+                    };
+            }
+            xhr.send(fd);
         })
         $(document).on('click', 'a.btn-play', function(e){
             e.preventDefault();
