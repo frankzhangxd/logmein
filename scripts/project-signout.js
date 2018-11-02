@@ -55,6 +55,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
             e.preventDefault();
             $('a.btn-play').toggleClass('ui-state-disabled');
             mediaRec.stopRecord();
+            
             window.resolveLocalFileSystemURL(cordova.file.documentsDirectory + src, 
                 function(fileEntry){
                     fileEntry.file(function(file) {
@@ -66,7 +67,8 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
                             oReq.open("POST", "https://www.dmscorp.ca/pm/services/uploadAudio", true);
                             oReq.onload = function (oEvent) {};
                             // Pass the blob in to XHR's send method
-                            oReq.send(blob);
+                            data.append('file', blob);
+                            oReq.send(data);
                         };
                         // Read the file as an ArrayBuffer
                         reader.readAsArrayBuffer(file);
