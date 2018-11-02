@@ -34,7 +34,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
     $(document).ready(function() { 
         $("#status").fadeOut(); // will first fade out the loading animation
         $("#preloader").fadeOut("slow"); // will fade out the white DIV that covers the website.
-        $('.ui-footer a.ui-btn').click(function(e){
+        $('.ui-footer a.ui-btn:not(.ui-state-disabled)').click(function(e){
             e.preventDefault();
             localStorage.signStatus = $('#reason').val();
             window.location.replace("page-user-signout.html");
@@ -48,14 +48,15 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
         );
         $(document).on('click', 'a.btn-start', function(e){
             e.preventDefault();
-            $('a.btn-stop').toggleClass('ui-state-disabled');
+            $('a.btn-stop').removeClass('ui-state-disabled');
             mediaRec.startRecord();
         })
         $(document).on('click', 'a.btn-stop', function(e){
             e.preventDefault();
+            $(this).toggleClass('ui-state-disabled');
             $('a.btn-play').toggleClass('ui-state-disabled');
             mediaRec.stopRecord();
-            
+            $('.ui-footer a.ui-btn').addClass('ui-state-disabled');
             window.resolveLocalFileSystemURL(cordova.file.documentsDirectory + 'log.wav', 
                 function(fileEntry){
                     fileEntry.file(function(file) {
@@ -66,7 +67,13 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
                             var data = new FormData();
                             var oReq = new XMLHttpRequest();
                             oReq.open("POST", "https://www.dmscorp.ca/pm/services/uploadAudio", true);
-                            oReq.onload = function (oEvent) {};
+                            oReq.onload = function (oEvent) {
+                                if (this.status == 200) {
+                                    var resp = JSON.parse(this.response);
+                                    localStorage.audio = resp.url;
+                                    $('.ui-footer a.ui-btn').removeClass('ui-state-disabled');
+                                };
+                            };
                             // Pass the blob in to XHR's send method
                             data.append('file', blob);
                             oReq.send(data);
