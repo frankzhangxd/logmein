@@ -8,7 +8,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
             if(results.rows.length>0){
                 var len = results.rows.length, i;
                 for (i = 0; i < len; i++){
-                    $('#list').append('<option value="'+ results.rows.item(i).listid +'" data-title="'+ results.rows.item(i).jobtitle +'" data-mobile="'+ results.rows.item(i).mobile +'" data-fname="'+ results.rows.item(i).firstname +'" data-lname="' + results.rows.item(i).lastname  +'">'+ results.rows.item(i).firstname +' ' + results.rows.item(i).lastname  +'</option>');
+                    $('#list').append('<option value="'+ results.rows.item(i).listid +'" data-personid="'+ results.rows.item(i).personId +'" data-title="'+ results.rows.item(i).jobtitle +'" data-mobile="'+ results.rows.item(i).mobile +'" data-fname="'+ results.rows.item(i).firstname +'" data-lname="' + results.rows.item(i).lastname  +'">'+ results.rows.item(i).firstname +' ' + results.rows.item(i).lastname  +'</option>');
                 }
             }
             $('#list').append('<option value="NEW">NEW EMPLOYEE ...</option>');
@@ -61,6 +61,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
                 $('#lname').val($(this).find('option:selected').data('lname'));
                 $('#mobile').val($(this).find('option:selected').data('mobile'));
                 $('#jobtitle').val($(this).find('option:selected').data('title'));
+                localStorage.personId = $(this).find('option:selected').data('personid');
                 $('div.alert').html('');
             }else{
                 $('div.alert').html('<h4>Welcome to DMS, please fill out the follwing information.</h4>');
