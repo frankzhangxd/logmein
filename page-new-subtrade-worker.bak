@@ -28,7 +28,7 @@
         </ul>
     </div><!-- /content -->
     <div data-role="footer" data-position="fixed">        
-        <a href="#" class="ui-btn ui-corner-all ui-btn-b">Next</a>
+        <a href="#" class="ui-btn ui-corner-all ui-btn-b btn-next">Next</a>
     </div>
 </div><!-- /page -->
 </body>

@@ -84,7 +84,7 @@ var app = {
             localStorage.company = $(this).attr('id');
             if($(this).attr('id')=='SIGNOUT'){
                 DEMODB.transaction(function (tx) {
-                    tx.executeSql("SELECT * FROM visit_log WHERE signout=0 AND listid=? AND cast((strftime('%s',datetime('now','localtime'))-strftime('%s',timestamp)) AS real)/60/60<15 ORDER BY id DESC LIMIT 1", [localStorage.listid], function (tx, results) {
+                    tx.executeSql("SELECT * FROM visit_log WHERE signout=0 AND listid=? AND cast((strftime('%s','now')-strftime('%s',timestamp)) AS real)/60/60<13 ORDER BY id DESC LIMIT 1", [localStorage.listid], function (tx, results) {
                         if(results.rows.length>0){
                             localStorage.projectID = results.rows.item(0).project;
                             window.location.replace('page-camera.html');

@@ -11,7 +11,7 @@
 <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
 
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-<script type="text/javascript" src="scripts/site-signout.js"></script>
+<script type="text/javascript" src="scripts/employee-signin.js"></script>
 </head>
 <body> 
 
@@ -25,20 +25,24 @@
 </div>
 <div data-role="page">
     <div data-role="header">
-    	<h1>SIGN OUT</h1>
-        <a href="#" class="ui-btn-left ui-btn ui-btn-inline ui-btn-icon-notext ui-icon-home"></a>
+    	<h1>SIGN IN</h1>
     	<a href="#" class="ui-btn ui-btn-inline ui-icon-check ui-btn-icon-notext ui-btn-right"></a>
     </div>
 	<div role="main" class="ui-content">
         <p class="img-wrapper"><img src="images/bm.gif" /></p>
-        <h4>Thank you for signing out, please remember to sign in whenever entering site.</h4>
-        <div id="form">
-            <select id="list">
-                <option value="">Please select your name from the list</option>
-            </select>
-            <a href="#" class="ui-btn ui-corner-all ui-btn-b btn-submit">Submit</a>
+        <div class="message">
+            <p>Thank you for signing in. Please ensure that you sign out when leaving the site, including breaks, and always sign in when entering the site.<br />All trades and employees are required to have them with at site: </p>
+            <ul>
+                <li>All applicable trade certificates,</li>
+                <li>All required PPE</li>
+                <li>All training certificates (incliding WHIMIS, W.W.H, etc.) </li>
+            </ul>
+            <p>By clicking the button below I agree that I currently meet all of the requirements as specified above.</p>
         </div>
 	</div><!-- /content -->
+    <div data-role="footer" data-position="fixed">        
+        <a href="#" class="ui-btn ui-corner-all ui-btn-b">Submit</a>
+    </div>
 </div><!-- /page -->
 </body>
 <style type="text/css">
@@ -50,10 +54,29 @@
         width: 100%;
         max-width: 300px;
     }
-    h4{
-        font-size: 2vh !important;
+    .message p{
+        text-align: justify;
     }
-    div.ui-select{
-        margin: 2vh 0;
+    .message ul{
+        padding-left: 5%;
     }
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

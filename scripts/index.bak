@@ -13,63 +13,58 @@ var projects;
         
     function synchronize(){
         initDatabase();
-        //employee
-        $.getJSON(serviceURL + 'getData', {table:"employee"}, function(data){
-            eps = data.items;
+        //projects
+        $.getJSON(serviceURL + 'getData', {table:"projects"}, function(data) {
+            console.log( "success" );
+            projects = data.items;
             DEMODB.transaction(
-                function (transaction) {
-                    transaction.executeSql("DELETE FROM employee WHERE 1", [] , function (t, r) {
-                        $.each(eps, function(index, user) {
-                            transaction.executeSql("INSERT INTO employee(listid, isactive, firstname, lastname, jobtitle, mobile, personId) VALUES (?, ?, ?, ?, ?, ?, ?)", [user.listid, 1, user.firstname, user.lastname, user.jobtitle, user.mobile, user.personId], 
-                                function(tx, res) {},
-                                function (tx, error) {return true;}
-                            );
-           	            })
-                        console.log('sync employees');
-                        //sub_employee
-                        $.getJSON(serviceURL + 'getData', {table:"sub_employee"}, function(data) {
-                  		    sbes = data.items;
-                            DEMODB.transaction(
-                                function (transaction) {
-                                    transaction.executeSql("DELETE FROM sub_employee WHERE status_sync=1", [] , function (t, r) {
-                                        $.each(sbes, function(index, user) {
-                                            transaction.executeSql("INSERT INTO sub_employee(company, certificates, firstname, lastname, jobtitle, mobile, personId, status_sync) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [user.company, user.certificates, user.firstname, user.lastname, user.jobtitle, user.mobile, user.personId, '1'], 
-                                                function(tx, res) {},
-                                                function (tx, error) {return true;}
-                                            );
-                           	            })
-                                        console.log('sync sub_employees');
-                                        //update visitlog
-                                        transaction.executeSql('SELECT * FROM config WHERE 1 LIMIT 1', [], function (tx, results){
-                                            if(results.rows.length>0){
-                                                if(results.rows.item(0).type<1){
-                                                    $.getJSON(serviceURL + 'getVisitLog', {project: results.rows.item(0).uID}, function(data){
-                                                  		logs = data.items;
-                                                        DEMODB.transaction(
-                                                            function (transaction) {
-                                                                transaction.executeSql("DELETE FROM visit_log WHERE status_sync=1", [] , function (t, r) {
-                                                                    console.log('Update Log');
-                                                       	            $.each(logs, function(index, user) {
-                                                                        transaction.executeSql("INSERT INTO visit_log(listid, project, firstname, lastname, company, jobtitle, mobile, activity, img, personId, timestamp, signout, signout_time, status_sync) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [user.listid, user.project, user.firstname, user.lastname, user.company, user.jobtitle, user.mobile, user.activity, user.img, user.personId, user.datetime, user.signout, user.signout_time, 1], function (t, r) {}, function (t, e) {console.log(e.message);});
-                                                       	            })
-                                                                }, function (t, e) {console.log(e.message);
-                                                            }); 
-                                                   	    });
-                                                   	});
-                                                }
-                                            }
-                                        }, function (t, e) {console.log(e.message);})
-                                        
-                                    }, function (t, e) {console.log(e.message);}); 
-                           	    });
-                       	});
-                    }, function (t, e) {console.log(e.message);}); 
-           	    });
+            function (transaction) {
+                transaction.executeSql("DELETE FROM projects WHERE 1", [] , function (t, r) {
+                    $.each(projects, function(index, user) {
+                        transaction.executeSql("INSERT INTO projects(project_id, name, shortname, cat, project_scope) VALUES (?, ?, ?, ?, ?)", [user.project_id, user.name, user.shortname, user.cat, user.project_scope], 
+                        function(t, r){}, 
+                        function (t, e) {console.log(e.message)});
+       	            })
+                    console.log('sync projects');
+                    //employee
+                    $.getJSON(serviceURL + 'getData', {table:"employee"}, function(data) {
+                  		eps = data.items;
+                        DEMODB.transaction(
+                            function (transaction) {
+                                transaction.executeSql("DELETE FROM employee WHERE 1", [] , function (t, r) {
+                       	            $.each(eps, function(index, user) {
+                                        transaction.executeSql("INSERT INTO employee(listid, isactive, firstname, lastname, jobtitle, mobile, personId) VALUES (?, ?, ?, ?, ?, ?, ?)", [user.listid, 1, user.firstname, user.lastname, user.jobtitle, user.mobile, user.personId], 
+                                                        function(tx, res) {},
+                                                        function (tx, error) {return true;}
+                                                    );
+                       	            })
+                                    console.log('sync employees');
+                                    //sub_employee
+                                    $.getJSON(serviceURL + 'getData', {table:"sub_employee"}, function(data) {
+                                  		sbes = data.items;
+                                        DEMODB.transaction(
+                                            function (transaction) {
+                                                transaction.executeSql("DELETE FROM sub_employee WHERE status_sync=1", [] , function (t, r) {
+                                       	            $.each(sbes, function(index, user) {
+                                                        transaction.executeSql("INSERT INTO sub_employee(company, certificates, firstname, lastname, jobtitle, mobile, personId, status_sync) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [user.company, user.certificates, user.firstname, user.lastname, user.jobtitle, user.mobile, user.personId, '1'], 
+                                                                        function(tx, res) {},
+                                                                        function (tx, error) {return true;}
+                                                                    );
+                                       	            })
+                                                    console.log('sync sub_employees');
+                                                    $.holdReady( false );
+                                                }, function (t, e) {console.log(e.message);}); 
+                                       	    });
+                                   	});
+                                }, function (t, e) {console.log(e.message);}); 
+                       	    });
+                   	});
+                    }, function (t, e) {console.log(e.message);}
+                ); 
+       	    });
        	})
-        .always(function(){
-            $.holdReady( false );   
-        })
     }
+      
     function initDatabase() {
         try {
             createTables();
@@ -83,6 +78,7 @@ var projects;
             return;
         }
     }
+        
     function createTables(){
         DEMODB.transaction(
             function (transaction) {
@@ -108,8 +104,9 @@ var projects;
    	    $("#status").fadeOut(); // will first fade out the loading animation
         $("#preloader").delay(400).fadeOut("slow"); // will fade out the white DIV that covers the website.
         
+        var sql_query_config = 'SELECT * FROM config WHERE 1 LIMIT 1';
         DEMODB.transaction(function (tx) {
-            tx.executeSql('SELECT * FROM config WHERE 1 LIMIT 1', [], function (tx, results) {
+            tx.executeSql(sql_query_config, [], function (tx, results) {
                 if(results.rows.length>0){
                     //if configured
                     if(results.rows.item(0).type<1){
@@ -120,7 +117,6 @@ var projects;
                         }
                         localStorage.device = 'PROJECT';
                         //Sync visit_log
-                        /*
                         $.getJSON(serviceURL + 'getVisitLog', {project: results.rows.item(0).uID}, function(data){
                       		logs = data.items;
                             DEMODB.transaction(
@@ -133,7 +129,6 @@ var projects;
                                 }); 
                        	    });
                        	});
-                        */
                     }else{
                         //else user device
                         $meta = JSON.parse(results.rows.item(0).meta);
@@ -169,7 +164,8 @@ var projects;
             localStorage.company = $(this).attr('id'); 
             if($(this).attr('id')=='SIGNOUT'){
                 DEMODB.transaction(function (tx) {
-                    tx.executeSql("SELECT * FROM visit_log WHERE activity=0 AND signout=0 AND project=? AND cast((strftime('%s',datetime('now','localtime'))-strftime('%s',timestamp)) AS real)/60/60<15", [localStorage.projectID], function (tx, results) {
+                    tx.executeSql("SELECT * FROM visit_log WHERE activity=0 AND signout=0 AND project=? AND cast((strftime('%s','now')-strftime('%s',timestamp)) AS real)/60/60<12", [localStorage.projectID], function (tx, results) {
+                        
                         if(results.rows.length>0){
                             window.location.replace('page-camera.html');
                         }else{

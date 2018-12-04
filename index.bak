@@ -38,13 +38,12 @@
     </table>
    
 	<div role="main" class="ui-content">
-        <ul data-role="listview" data-inset="true" data-divider-theme="b">
-            <li data-role="list-divider">Sign In</li>
+        <h4>I AM:</h4>
+        <ul data-role="listview" data-inset="true">
             <li><a href="#" id="DMS">A EMPLOYEE</a></li>
             <li><a href="#" id="SUBTRADE">A SUBTRADE</a></li>
             <li><a href="#" id="VISITOR">A VISITOR</a></li>
-            <!--<li data-role="list-divider">Sign Out</li>-->
-            <li><a href="#" id="SIGNOUT" style="background: #FAD7A0;">SIGN OUT</a></li>
+            <li><a href="#" id="SIGNOUT">SIGNING OUT</a></li>
         </ul> 
 	</div><!-- /content -->
 </div><!-- /page -->

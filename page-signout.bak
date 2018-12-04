@@ -31,7 +31,7 @@
     </div>
 	<div role="main" class="ui-content">
         <p class="img-wrapper"><img src="images/bm.gif" /></p>
-        <h4>Thank you for signing out, please remember to sign in whenever entering site.</h4>
+        <h4>Thank you for signing out, please remember to sign in whenever entring site.</h4>
         <div id="form">
             <select id="list">
                 <option value="">Please select your name from the list</option>

@@ -32,7 +32,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
         .fail(function (jqXHR, textStatus, errorThrown) {
             console.log("Failed in Face Add, Details:  Status:: " + jqXHR.status + "  ResponseText:: " + jqXHR.statusText + "");
         })
-        .always(function(data){
+        .then(function( data, textStatus, response ){
             DEMODB.transaction(function (transaction){
                 if(localStorage.signStatus<1){
                     //If sign in, then signout all previous sign in first
@@ -49,7 +49,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
                                 DEMODB.transaction(function (tx){
                                     tx.executeSql("UPDATE visit_log SET status_sync=1 WHERE id =?", [newID], function (tx, results) {console.log('updated');}, function (t, e) {console.log(e.message);}); 
                                 });
-                            }).always(function (data) {
+                            }).done(function (data) {
                                 localStorage.clear(); 
                                 localStorage.signStatus = 0;
                                 window.location.replace('index.html');
@@ -60,35 +60,31 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
             });
         });        
     }
-    $.holdReady( true );
-    if(localStorage.getItem("personId") === null || localStorage.personId==''){
-        //PersonGroup Person - Create
-        $.ajax({
-            url: "https://canadacentral.api.cognitive.microsoft.com/face/v1.0/persongroups/dmscorp/persons",
-            beforeSend: function (xhrObj) {
-                xhrObj.setRequestHeader("Content-Type","application/json");
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "b62de5e5fb964732b97b43e85e0161ae");
-            },
-            type: "POST",
-            data: "{'name': '"+localStorage.fname+' '+localStorage.lname+"', 'userData': '"+localStorage.listid+"'}"
-        })
-        .done(function (data){
-            localStorage.personId = data.personId;
-            $.holdReady( false );
-        })
-        .fail(function (jqXHR, textStatus, errorThrown) {
-            console.log("Failed in Person - Create, Details:  Status:: " + jqXHR.status + "  ResponseText:: " + jqXHR.statusText + "");
-        })
-    }else{
-        $.holdReady( false );
-    }
     
     $(document).ready(function(){
         $("#status").fadeOut(); // will first fade out the loading animation
         $("#preloader").delay(400).fadeOut("slow"); // will fade out the white DIV that covers the website.
+        if(localStorage.getItem("personId") === null || localStorage.personId==''){
+            //PersonGroup Person - Create
+            $.ajax({
+                url: "https://canadacentral.api.cognitive.microsoft.com/face/v1.0/persongroups/dmscorp/persons",
+                    beforeSend: function (xhrObj) {
+                        xhrObj.setRequestHeader("Content-Type","application/json");
+                        xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "b62de5e5fb964732b97b43e85e0161ae");
+                    },
+                    type: "POST",
+                    data: "{'name': '"+localStorage.fname+' '+localStorage.lname+"', 'userData': '"+localStorage.listid+"'}"
+                })
+                .done(function (data){
+                    localStorage.personId = data.personId;
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    console.log("Failed in Person - Create, Details:  Status:: " + jqXHR.status + "  ResponseText:: " + jqXHR.statusText + "");
+                })
+        }
+
         $('.ui-footer a.ui-btn').click(function(e){
             e.preventDefault();
-            $(this).text('Submitting ...').addClass('ui-state-disabled');
             signLog();
         })
     })

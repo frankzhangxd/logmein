@@ -3,32 +3,17 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
 
 (function ($) {
     $.holdReady( true );
-    $.getJSON(serviceURL + 'getData', {table:"projects"}, function(data) {
-        eps = data.items;
-        DEMODB.transaction(
-            function (transaction) {
-                transaction.executeSql("DELETE FROM projects WHERE 1", [] , function (t, r) {
-                    $.each(eps, function(index, user) {
-                        transaction.executeSql("REPLACE INTO projects(project_id, name, shortname, cat, project_scope) VALUES (?, ?, ?, ?, ?)", [user.project_id, user.name, user.shortname, user.cat, user.project_scope], 
-                            function(tx, res) {},
-                            function (tx, error) {return true;}
-                        );
-                    }) 
-                }, function (t, e) {console.log(e.message);}); 
-   	        }
-        );
-   	}).always(function() {
-        DEMODB.transaction(function (tx) {
-            tx.executeSql('SELECT * FROM projects WHERE 1 ORDER BY name', [], function (tx, results) {
-                if(results.rows.length>0){
-                    var len = results.rows.length, i;
-                    for (i = 0; i < len; i++){
-                        $('#list').append('<option value="'+ results.rows.item(i).project_id +'">'+ results.rows.item(i).name +'</option>');
-                    }
+    var sqlstr = 'SELECT * FROM projects WHERE 1 ORDER BY name';
+    DEMODB.transaction(function (tx) {
+        tx.executeSql(sqlstr, [], function (tx, results) {
+            if(results.rows.length>0){
+                var len = results.rows.length, i;
+                for (i = 0; i < len; i++){
+                    $('#list').append('<option value="'+ results.rows.item(i).project_id +'">'+ results.rows.item(i).name +'</option>');
                 }
-                $.holdReady( false );
-            }, function (t, e) {console.log(e.message);});
-        });
+            }
+            $.holdReady( false );
+        }, function (t, e) {console.log(e.message);});
     });
 
     $(document).ready(function() { 

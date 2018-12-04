@@ -28,7 +28,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
             
         })
         
-        $(document).on('click', '.ui-footer a.ui-btn', function(e){
+        $(document).on('click', 'a.btn-next', function(e){
             e.preventDefault();
             $.ajax({
                 url: "https://canadacentral.api.cognitive.microsoft.com/face/v1.0/persongroups/dmscorp/persons",

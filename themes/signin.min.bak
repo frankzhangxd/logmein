@@ -134,8 +134,7 @@ label.ui-btn {
     display: block !important;
     background-color: #663333 !important;
     color: white !important;
-    margin: 2% 1%;
-    font-size: 1em !important;
+    margin: 1%;
 }
 /* Corner rounding
 -----------------------------------------------------------------------------------------------------------*/

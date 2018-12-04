@@ -153,7 +153,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
                     if(localStorage.signStatus==1){
                         $('h1').text('Signed Out!');
                         
-                        var sql_query_person = "SELECT * FROM visit_log WHERE personId='"+localStorage.personId+"' AND activity=1 AND signout=0 AND project='"+localStorage.projectID+"' AND cast((strftime('%s',datetime('now','localtime'))-strftime('%s',timestamp)) AS real)/60/60<15 ORDER BY id DESC LIMIT 1";
+                        var sql_query_person = "SELECT * FROM visit_log WHERE personId='"+localStorage.personId+"' AND activity=1 AND signout=0 AND project='"+localStorage.projectID+"' AND cast((strftime('%s','now')-strftime('%s',timestamp)) AS real)/60/60<12 ORDER BY id DESC LIMIT 1";
                         DEMODB.transaction(function (tx) {
                             tx.executeSql(sql_query_person, [], function (tx, results) {
                                 if(results.rows.length>0){

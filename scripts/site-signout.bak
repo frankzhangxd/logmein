@@ -62,7 +62,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
             $('h4').text('Thank you for visiting DMS.');  
         }
         
-        var sql_query_person1 = "SELECT * FROM visit_log WHERE activity=0 AND signout=0 AND project='"+localStorage.projectID+"' AND cast((strftime('%s',datetime('now','localtime'))-strftime('%s',timestamp)) AS real)/60/60<15 GROUP BY firstname";
+        var sql_query_person1 = "SELECT * FROM visit_log WHERE activity=0 AND signout=0 AND project='"+localStorage.projectID+"' AND cast((strftime('%s','now')-strftime('%s',timestamp)) AS real)/60/60<12 GROUP BY firstname";
         DEMODB.transaction(function (tx) {
             tx.executeSql(sql_query_person1, [], function (tx, results) {
                 if(results.rows.length>0){
@@ -76,7 +76,6 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
         });
     }
     $(document).ready(function(){
-        $('#form').hide();
         $("#status").fadeOut(); // will first fade out the loading animation
         $("#preloader").delay(400).fadeOut("slow"); // will fade out the white DIV that covers the website.
         if(localStorage.getItem("faceID") !== null){
@@ -100,7 +99,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
                     $('h4').text('It Seems we do not recognize you!'); 
                     $('#form').show();
                 }else{
-                    var sql_query_person2 = "SELECT * FROM visit_log WHERE personId='"+localStorage.personId+"' AND activity=0 AND signout=0 AND project='"+localStorage.projectID+"' AND cast((strftime('%s',datetime('now','localtime'))-strftime('%s',timestamp)) AS real)/60/60<15 ORDER BY id DESC LIMIT 1";
+                    var sql_query_person2 = "SELECT * FROM visit_log WHERE personId='"+localStorage.personId+"' AND activity=0 AND signout=0 AND project='"+localStorage.projectID+"' AND cast((strftime('%s','now')-strftime('%s',timestamp)) AS real)/60/60<12 ORDER BY id DESC LIMIT 1";
                     DEMODB.transaction(function (tx) {
                         tx.executeSql(sql_query_person2, [], function (tx, results) {
                             if(results.rows.length>0){
@@ -153,7 +152,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
                 localStorage.fname = $(this).find('option:selected').data('fname');
                 localStorage.lname = $(this).find('option:selected').data('lname');
                 localStorage.personId = $(this).val();
-                var sql_query_person2 = "SELECT * FROM visit_log WHERE personId='"+localStorage.personId+"' AND activity=0 AND signout=0 AND project='"+localStorage.projectID+"' AND cast((strftime('%s',datetime('now','localtime'))-strftime('%s',timestamp)) AS real)/60/60<15 ORDER BY id DESC LIMIT 1";
+                var sql_query_person2 = "SELECT * FROM visit_log WHERE personId='"+localStorage.personId+"' AND activity=0 AND signout=0 AND project='"+localStorage.projectID+"' AND cast((strftime('%s','now')-strftime('%s',timestamp)) AS real)/60/60<12 ORDER BY id DESC LIMIT 1";
                 DEMODB.transaction(function (tx) {
                     tx.executeSql(sql_query_person2, [], function (tx, results) {
                         if(results.rows.length>0){

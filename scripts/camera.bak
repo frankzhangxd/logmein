@@ -109,8 +109,7 @@ var DEMODB = openDatabase('LOCALDB', '1.0', 'Local Database', 5 * 1024 * 1024);
                         }else{
                             function alertDismissed() {
                                 $.post(serviceURL + 'fileDelete', {'file': localStorage.image}, function(data) {})
-                                //window.location.replace('page-camera.html');
-                                window.location.reload(true);
+                                window.location.replace('page-camera.html');
                             }
                             navigator.notification.alert("Failed in Face Detect, Please make sure your face is in the box.", alertDismissed, "Warning", 'Take Again');
                         }
